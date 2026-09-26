@@ -39,3 +39,7 @@ settings_before_release_sync.py
 urls_before_release_sync.py
 FINAL_RELEASE_HANDOVER_RECORD.txt
 .gitignore_before_release_sync
+
+# Local data backup - NEVER commit
+proshop_data_backup.json
+proshop_production_data.json
