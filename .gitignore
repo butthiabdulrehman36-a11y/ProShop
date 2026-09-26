@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+db.sqlite3
+db_backup_before_cleanup.sqlite3
+db_backup_before_deployment.sqlite3
+media/
+staticfiles/
+
+# Environment
+.env
+venv/
+.env.backup-before-production
+
+README_before_final_review.md
+_FINAL_RELEASE_EXTRACTION_TEST_2026-09-23/
+_PYTHON_SYNTAX_TEST_2026-09-21/
+_release/
+_release_final/
+_release_new/
+_release_verify_2026-09-21/
+_ZIP_CLEAN_VERIFY_2026-09-22/
+_ZIP_EXTRACTION_TEST_2026-09-21/
+_ZIP_FINAL_TEST_2026-09-22/
+db_backup_*.sqlite3
+media_backup_*/
+*_Backup.zip
+*_BACKUP.zip
+ProShop_Final_*.zip
+ProShop_Launch_*.zip
+ProShop_Professional_Release*.zip
+*_before_release_sync.py
+*_before_release_sync.*
+settings_before_final_env.py
+settings_before_release_sync.py
+urls_before_release_sync.py
+FINAL_RELEASE_HANDOVER_RECORD.txt
+.gitignore_before_release_sync

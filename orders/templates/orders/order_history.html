@@ -1,0 +1,621 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders - ProShop</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+
+        /* =========================
+           PROFESSIONAL ORDER HISTORY
+        ========================= */
+
+        .professional-history-page {
+            min-height: 100vh;
+            padding: 60px 20px;
+            background: #111827;
+        }
+
+        .professional-history-container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+
+        .professional-history-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .professional-history-badge {
+            display: inline-block;
+            margin-bottom: 14px;
+            padding: 7px 14px;
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .professional-history-header h1 {
+            margin: 0 0 10px;
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: 800;
+        }
+
+        .professional-history-header p {
+            margin: 0;
+            color: #9ca3af;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ORDER CARD */
+
+        .professional-order-card {
+            margin-bottom: 25px;
+            padding: 28px;
+            background: #1f2937;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        .professional-order-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .professional-order-number {
+            margin: 0;
+            color: #f59e0b;
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .professional-order-date {
+            margin: 0;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        /* ORDER SUMMARY */
+
+        .professional-order-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .professional-summary-box {
+            padding: 16px;
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+        }
+
+        .professional-summary-label {
+            display: block;
+            margin-bottom: 7px;
+            color: #9ca3af;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .professional-summary-value {
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .professional-summary-total {
+            color: #f59e0b;
+        }
+
+        /* STATUS */
+
+        .professional-status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .professional-status-pending {
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.12);
+        }
+
+        .professional-status-processing {
+            color: #93c5fd;
+            background: rgba(30, 58, 138, 0.35);
+        }
+
+        .professional-status-shipped {
+            color: #67e8f9;
+            background: rgba(22, 78, 99, 0.35);
+        }
+
+        .professional-status-delivered {
+            color: #86efac;
+            background: rgba(20, 83, 45, 0.35);
+        }
+
+        .professional-status-cancelled {
+            color: #fca5a5;
+            background: rgba(127, 29, 29, 0.35);
+        }
+
+        /* ITEMS */
+
+        .professional-items-title {
+            margin: 0 0 15px;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .professional-order-item {
+            padding: 16px;
+            margin-bottom: 10px;
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+        }
+
+        .professional-product-name {
+            margin: 0 0 10px;
+            color: #f59e0b;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .professional-product-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        .professional-product-details strong {
+            color: #d1d5db;
+        }
+
+        .professional-item-total {
+            color: #f59e0b;
+            font-weight: 700;
+        }
+
+        /* BUTTON */
+
+        .professional-order-actions {
+            margin-top: 20px;
+        }
+
+        .professional-view-order-button {
+            display: inline-block;
+            padding: 13px 22px;
+            color: #111827;
+            background: #f59e0b;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            transition: all 0.25s ease;
+        }
+
+        .professional-view-order-button:hover {
+            background: #fbbf24;
+            transform: translateY(-2px);
+        }
+
+        /* EMPTY STATE */
+
+        .professional-empty-orders {
+            padding: 45px 25px;
+            text-align: center;
+            background: #1f2937;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+        }
+
+        .professional-empty-orders h2 {
+            margin: 0 0 10px;
+            color: #ffffff;
+            font-size: 24px;
+        }
+
+        .professional-empty-orders p {
+            margin: 0;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* CONTINUE SHOPPING */
+
+        .professional-history-footer {
+            margin-top: 35px;
+            text-align: center;
+        }
+
+        .professional-continue-shopping {
+            display: inline-block;
+            padding: 13px 24px;
+            color: #d1d5db;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+        }
+
+        .professional-continue-shopping:hover {
+            color: #ffffff;
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.40);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 650px) {
+
+            .professional-history-page {
+                padding: 40px 16px;
+            }
+
+            .professional-history-header h1 {
+                font-size: 29px;
+            }
+
+            .professional-order-card {
+                padding: 20px 18px;
+            }
+
+            .professional-order-card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .professional-order-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .professional-product-details {
+                flex-direction: column;
+                gap: 7px;
+            }
+
+            .professional-view-order-button {
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+            <a href="{% url 'home' %}" class="logo">
+                ProShop
+            </a>
+
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">
+                    Home
+                </a>
+
+                <a href="{% url 'product_list' %}">
+                    Products
+                </a>
+
+                {% if user.is_authenticated %}
+
+                    <a href="{% url 'profile' %}">
+                        Profile
+                    </a>
+
+                    <a href="{% url 'logout' %}">
+                        Logout
+                    </a>
+
+                {% else %}
+
+                    <a href="{% url 'login' %}">
+                        Login
+                    </a>
+
+                {% endif %}
+
+                <a href="{% url 'cart' %}">
+                    Cart
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ORDER HISTORY -->
+
+    <main class="professional-history-page">
+
+        <div class="professional-history-container">
+
+
+            <!-- HEADER -->
+
+            <section class="professional-history-header">
+
+                <span class="professional-history-badge">
+                    PROSHOP ORDERS
+                </span>
+
+                <h1>
+                    My Order History
+                </h1>
+
+                <p>
+                    View your previous orders, order status,
+                    products and total amounts.
+                </p>
+
+            </section>
+
+
+            {% if orders %}
+
+
+                {% for order in orders %}
+
+
+                    <!-- ORDER CARD -->
+
+                    <section class="professional-order-card">
+
+
+                        <!-- ORDER HEADER -->
+
+                        <div class="professional-order-card-header">
+
+                            <h2 class="professional-order-number">
+                                Order #{{ order.id }}
+                            </h2>
+
+                            <p class="professional-order-date">
+                                {{ order.created_at|date:"d M Y, h:i A" }}
+                            </p>
+
+                        </div>
+
+
+                        <!-- ORDER SUMMARY -->
+
+                        <div class="professional-order-summary">
+
+
+                            <div class="professional-summary-box">
+
+                                <span class="professional-summary-label">
+                                    Order Total
+                                </span>
+
+                                <span class="professional-summary-value professional-summary-total">
+                                    PKR {{ order.total_amount|floatformat:2 }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="professional-summary-box">
+
+                                <span class="professional-summary-label">
+                                    Status
+                                </span>
+
+                                <span class="professional-summary-value">
+
+                                    {% if order.status == "pending" %}
+
+                                        <span class="professional-status-badge professional-status-pending">
+                                            {{ order.get_status_display }}
+                                        </span>
+
+                                    {% elif order.status == "processing" %}
+
+                                        <span class="professional-status-badge professional-status-processing">
+                                            {{ order.get_status_display }}
+                                        </span>
+
+                                    {% elif order.status == "shipped" %}
+
+                                        <span class="professional-status-badge professional-status-shipped">
+                                            {{ order.get_status_display }}
+                                        </span>
+
+                                    {% elif order.status == "delivered" %}
+
+                                        <span class="professional-status-badge professional-status-delivered">
+                                            {{ order.get_status_display }}
+                                        </span>
+
+                                    {% elif order.status == "cancelled" %}
+
+                                        <span class="professional-status-badge professional-status-cancelled">
+                                            {{ order.get_status_display }}
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="professional-status-badge professional-status-pending">
+                                            {{ order.get_status_display }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- PRODUCTS -->
+
+                        <h3 class="professional-items-title">
+                            Products in this Order
+                        </h3>
+
+
+                        {% with order_items=order.items.all %}
+
+                            {% if order_items %}
+
+                                {% for item in order_items %}
+
+                                    <div class="professional-order-item">
+
+                                        <p class="professional-product-name">
+                                            {{ item.product.name }}
+                                        </p>
+
+                                        <div class="professional-product-details">
+
+                                            <span>
+                                                <strong>Quantity:</strong>
+                                                {{ item.quantity }}
+                                            </span>
+
+                                            <span>
+                                                <strong>Price:</strong>
+                                                PKR {{ item.price|floatformat:2 }}
+                                            </span>
+
+                                            <span class="professional-item-total">
+                                                Item Total:
+                                                PKR {{ item.item_total|floatformat:2 }}
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <div class="professional-order-item">
+
+                                    <p class="professional-product-name">
+                                        No products found for this order.
+                                    </p>
+
+                                </div>
+
+                            {% endif %}
+
+                        {% endwith %}
+
+
+                        <!-- VIEW ORDER -->
+
+                        <div class="professional-order-actions">
+
+                            <a
+                                href="{% url 'order_detail' order.id %}"
+                                class="professional-view-order-button"
+                            >
+                                View Order Details
+                            </a>
+
+                        </div>
+
+
+                    </section>
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <!-- EMPTY STATE -->
+
+                <section class="professional-empty-orders">
+
+                    <h2>
+                        No Orders Found
+                    </h2>
+
+                    <p>
+                        You have not placed any orders yet.
+                        Start shopping to see your orders here.
+                    </p>
+
+                </section>
+
+
+            {% endif %}
+
+
+            <!-- CONTINUE SHOPPING -->
+
+            <div class="professional-history-footer">
+
+                <a
+                    href="{% url 'product_list' %}"
+                    class="professional-continue-shopping"
+                >
+                    Continue Shopping
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

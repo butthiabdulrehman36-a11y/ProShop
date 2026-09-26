@@ -1,0 +1,520 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - ProShop</title>
+
+    <style>
+
+        /* =========================
+           PROFESSIONAL LOGIN PAGE
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            min-height: 100%;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(245, 158, 11, 0.12),
+                    transparent 35%
+                ),
+                #111827;
+
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+
+        .professional-login-page {
+            width: 100%;
+            max-width: 460px;
+        }
+
+
+        /* HEADER */
+
+        .professional-login-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+
+        .professional-login-logo {
+            display: inline-block;
+            margin-bottom: 16px;
+
+            color: #f59e0b;
+            text-decoration: none;
+
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+
+            transition: color 0.25s ease;
+        }
+
+
+        .professional-login-logo:hover {
+            color: #fbbf24;
+        }
+
+
+        .professional-login-badge {
+            display: inline-block;
+            padding: 7px 14px;
+
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.12);
+
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 999px;
+
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+
+        .professional-login-header h1 {
+            margin: 16px 0 8px;
+
+            color: #ffffff;
+
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+
+        .professional-login-header p {
+            max-width: 390px;
+            margin: 0 auto;
+
+            color: #9ca3af;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        /* LOGIN CARD */
+
+        .professional-login-card {
+            padding: 30px;
+
+            background: #1f2937;
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .professional-login-card h2 {
+            margin: 0 0 25px;
+
+            color: #ffffff;
+
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+
+        /* ERROR */
+
+        .professional-login-error {
+            margin-bottom: 20px;
+            padding: 12px 14px;
+
+            color: #fecaca;
+            background: rgba(239, 68, 68, 0.10);
+
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            border-radius: 9px;
+
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+
+        /* FORM */
+
+        .professional-login-form label {
+            display: block;
+            margin-bottom: 8px;
+
+            color: #d1d5db;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+
+        .professional-login-form input {
+            width: 100%;
+            height: 46px;
+
+            padding: 11px 14px;
+            margin-bottom: 18px;
+
+            color: #ffffff;
+            background: #111827;
+
+            border: 1px solid #4b5563;
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        .professional-login-form input::placeholder {
+            color: #6b7280;
+        }
+
+
+        .professional-login-form input:hover {
+            border-color: #6b7280;
+        }
+
+
+        .professional-login-form input:focus {
+            background: #0f172a;
+            border-color: #f59e0b;
+
+            box-shadow:
+                0 0 0 3px rgba(245, 158, 11, 0.10);
+        }
+
+
+        /* BUTTON */
+
+        .professional-login-button {
+            display: block;
+
+            width: 180px;
+            min-height: 46px;
+
+            margin: 8px auto 0;
+            padding: 12px 20px;
+
+            color: #111827;
+            background: #f59e0b;
+
+            border: 1px solid #f59e0b;
+            border-radius: 9px;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition:
+                background 0.25s ease,
+                border-color 0.25s ease,
+                transform 0.25s ease;
+        }
+
+
+        .professional-login-button:hover {
+            background: #fbbf24;
+            border-color: #fbbf24;
+
+            transform: translateY(-1px);
+        }
+
+
+        .professional-login-button:focus-visible {
+            outline: 3px solid rgba(245, 158, 11, 0.25);
+            outline-offset: 2px;
+        }
+
+
+        /* REGISTER */
+
+        .professional-login-register {
+            margin: 22px 0 0;
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+
+            color: #9ca3af;
+
+            text-align: center;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        .professional-login-register a {
+            color: #f59e0b;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition: color 0.25s ease;
+        }
+
+
+        .professional-login-register a:hover {
+            color: #fbbf24;
+            text-decoration: underline;
+        }
+
+
+        /* HOME LINK */
+
+        .professional-login-home {
+            display: block;
+
+            margin-top: 20px;
+
+            color: #9ca3af;
+
+            text-align: center;
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: color 0.25s ease;
+        }
+
+
+        .professional-login-home:hover {
+            color: #ffffff;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+
+            body {
+                padding: 24px 16px;
+            }
+
+
+            .professional-login-logo {
+                font-size: 27px;
+            }
+
+
+            .professional-login-header h1 {
+                font-size: 28px;
+            }
+
+
+            .professional-login-card {
+                padding: 24px 20px;
+            }
+
+
+            .professional-login-button {
+                width: 100%;
+            }
+
+        }
+
+
+        @media (max-width: 400px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+
+            .professional-login-header h1 {
+                font-size: 25px;
+            }
+
+
+            .professional-login-header p {
+                font-size: 13px;
+            }
+
+
+            .professional-login-card {
+                padding: 22px 16px;
+            }
+
+
+            .professional-login-card h2 {
+                font-size: 19px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main class="professional-login-page">
+
+
+        <!-- HEADER -->
+
+        <header class="professional-login-header">
+
+            <a
+                href="{% url 'home' %}"
+                class="professional-login-logo"
+            >
+                ProShop
+            </a>
+
+            <div>
+
+                <span class="professional-login-badge">
+                    PROSHOP ACCOUNT
+                </span>
+
+            </div>
+
+            <h1>
+                Welcome Back
+            </h1>
+
+            <p>
+                Login to your ProShop account to continue shopping.
+            </p>
+
+        </header>
+
+
+        <!-- LOGIN CARD -->
+
+        <section class="professional-login-card">
+
+            <h2>
+                Account Login
+            </h2>
+
+
+            <!-- ERROR -->
+
+            {% if error %}
+
+                <div
+                    class="professional-login-error"
+                    role="alert"
+                >
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- FORM -->
+
+            <form
+                method="POST"
+                class="professional-login-form"
+            >
+
+                {% csrf_token %}
+
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required
+                    autofocus
+                >
+
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="professional-login-button"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <!-- REGISTER -->
+
+            <p class="professional-login-register">
+
+                Don't have an account?
+
+                <a href="{% url 'register' %}">
+                    Register
+                </a>
+
+            </p>
+
+
+            <!-- HOME -->
+
+            <a
+                href="{% url 'home' %}"
+                class="professional-login-home"
+            >
+                ← Back to Home
+            </a>
+
+        </section>
+
+
+    </main>
+
+</body>
+
+</html>

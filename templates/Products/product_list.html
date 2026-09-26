@@ -1,0 +1,458 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products - ProShop</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+
+        /* =========================
+           PROFESSIONAL PRODUCTS PAGE
+        ========================= */
+
+        .product-list-page {
+            min-height: 100vh;
+            padding: 70px 20px;
+            background: #111827;
+        }
+
+        .product-list-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-list-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .product-list-badge {
+            display: inline-block;
+            padding: 7px 14px;
+            margin-bottom: 14px;
+
+            background: rgba(245, 158, 11, 0.12);
+            color: #f59e0b;
+
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 999px;
+
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .product-list-header h1 {
+            margin: 0 0 12px;
+
+            color: #ffffff;
+
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .product-list-header p {
+            max-width: 650px;
+            margin: 0 auto;
+
+            color: #9ca3af;
+
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .professional-products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .professional-product-card {
+            overflow: hidden;
+
+            background: #1f2937;
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.20);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+        .professional-product-card:hover {
+            transform: translateY(-7px);
+
+            border-color: rgba(245, 158, 11, 0.35);
+
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+        }
+
+        .professional-product-image {
+            width: 100%;
+            height: 250px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #111827;
+
+            overflow: hidden;
+        }
+
+        .professional-product-image img {
+            display: block;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: transform 0.4s ease;
+        }
+
+        .professional-product-card:hover
+        .professional-product-image img {
+            transform: scale(1.05);
+        }
+
+        .no-product-image {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .professional-product-content {
+            padding: 24px;
+        }
+
+        .professional-product-content h2 {
+            margin: 0 0 10px;
+
+            color: #ffffff;
+
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .professional-product-description {
+            min-height: 48px;
+            margin: 0 0 18px;
+
+            color: #9ca3af;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .professional-product-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+        .professional-product-price {
+            color: #f59e0b;
+
+            font-size: 22px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .professional-product-button {
+            display: inline-block;
+
+            padding: 11px 17px;
+
+            background: #f59e0b;
+            color: #111827;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition:
+                background 0.25s ease,
+                transform 0.25s ease;
+        }
+
+        .professional-product-button:hover {
+            background: #fbbf24;
+            transform: translateY(-1px);
+        }
+
+        .products-empty-message {
+            grid-column: 1 / -1;
+
+            padding: 50px 20px;
+
+            text-align: center;
+
+            color: #9ca3af;
+
+            background: #1f2937;
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+        }
+
+        .products-empty-message h2 {
+            margin: 0 0 10px;
+
+            color: #ffffff;
+            font-size: 24px;
+        }
+
+        .products-empty-message p {
+            margin: 0;
+
+            color: #9ca3af;
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           RESPONSIVE PRODUCTS
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .professional-products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .product-list-header h1 {
+                font-size: 36px;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .product-list-page {
+                padding: 45px 16px;
+            }
+
+            .professional-products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .product-list-header {
+                margin-bottom: 35px;
+            }
+
+            .product-list-header h1 {
+                font-size: 30px;
+            }
+
+            .professional-product-image {
+                height: 230px;
+            }
+
+            .professional-product-bottom {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .professional-product-button {
+                text-align: center;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+            <a href="{% url 'home' %}" class="logo">
+                ProShop
+            </a>
+
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">
+                    Home
+                </a>
+
+                <a href="{% url 'product_list' %}">
+                    Products
+                </a>
+
+                {% if user.is_authenticated %}
+
+                    <a href="{% url 'profile' %}">
+                        Profile
+                    </a>
+
+                    <a href="{% url 'logout' %}">
+                        Logout
+                    </a>
+
+                {% else %}
+
+                    <a href="{% url 'login' %}">
+                        Login
+                    </a>
+
+                {% endif %}
+
+                <a href="{% url 'cart' %}">
+                    Cart
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         PRODUCTS PAGE
+    ========================== -->
+
+    <main class="product-list-page">
+
+        <div class="product-list-container">
+
+
+            <!-- Page Header -->
+
+            <div class="product-list-header">
+
+                <span class="product-list-badge">
+                    PROSHOP COLLECTION
+                </span>
+
+                <h1>
+                    Our Products
+                </h1>
+
+                <p>
+                    Discover quality products at great prices.
+                    Choose your favorite product and explore its details.
+                </p>
+
+            </div>
+
+
+            <!-- Products Grid -->
+
+            <div class="professional-products-grid">
+
+                {% for product in products %}
+
+                    <article class="professional-product-card">
+
+
+                        <!-- Product Image -->
+
+                        <div class="professional-product-image">
+
+                            {% if product.image %}
+
+                                <img
+                                    src="{{ product.image.url }}"
+                                    alt="{{ product.name }}"
+                                    loading="lazy"
+                                >
+
+                            {% else %}
+
+                                <span class="no-product-image">
+                                    No Image Available
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- Product Information -->
+
+                        <div class="professional-product-content">
+
+                            <h2>
+                                {{ product.name }}
+                            </h2>
+
+                            <p class="professional-product-description">
+                                {{ product.description }}
+                            </p>
+
+
+                            <div class="professional-product-bottom">
+
+                                <div class="professional-product-price">
+                                    Rs. {{ product.price }}
+                                </div>
+
+                                <a
+                                    href="{% url 'product_detail' product.id %}"
+                                    class="professional-product-button"
+                                >
+                                    View Details
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                {% empty %}
+
+                    <div class="products-empty-message">
+
+                        <h2>
+                            No Products Available
+                        </h2>
+
+                        <p>
+                            Please check back again soon.
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+</body>
+
+</html>

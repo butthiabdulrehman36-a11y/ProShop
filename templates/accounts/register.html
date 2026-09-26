@@ -1,0 +1,548 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account - ProShop</title>
+
+    <style>
+
+        /* =========================
+           PROFESSIONAL REGISTER PAGE
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            min-height: 100%;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(245, 158, 11, 0.12),
+                    transparent 35%
+                ),
+                #111827;
+
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+
+        .professional-register-page {
+            width: 100%;
+            max-width: 460px;
+        }
+
+
+        /* HEADER */
+
+        .professional-register-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+
+        .professional-register-logo {
+            display: inline-block;
+            margin-bottom: 16px;
+
+            color: #f59e0b;
+            text-decoration: none;
+
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+
+            transition: color 0.25s ease;
+        }
+
+
+        .professional-register-logo:hover {
+            color: #fbbf24;
+        }
+
+
+        .professional-register-badge {
+            display: inline-block;
+            padding: 7px 14px;
+
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.12);
+
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 999px;
+
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+
+        .professional-register-header h1 {
+            margin: 16px 0 8px;
+
+            color: #ffffff;
+
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+
+        .professional-register-header p {
+            max-width: 400px;
+            margin: 0 auto;
+
+            color: #9ca3af;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        /* REGISTER CARD */
+
+        .professional-register-card {
+            padding: 30px;
+
+            background: #1f2937;
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .professional-register-card h2 {
+            margin: 0 0 25px;
+
+            color: #ffffff;
+
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+
+        /* ERROR */
+
+        .professional-register-error {
+            margin-bottom: 20px;
+            padding: 12px 14px;
+
+            color: #fecaca;
+            background: rgba(239, 68, 68, 0.10);
+
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            border-radius: 9px;
+
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+
+        /* FORM */
+
+        .professional-register-form label {
+            display: block;
+            margin-bottom: 8px;
+
+            color: #d1d5db;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+
+        .professional-register-form input {
+            width: 100%;
+            height: 46px;
+
+            padding: 11px 14px;
+            margin-bottom: 18px;
+
+            color: #ffffff;
+            background: #111827;
+
+            border: 1px solid #4b5563;
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        .professional-register-form input::placeholder {
+            color: #6b7280;
+        }
+
+
+        .professional-register-form input:hover {
+            border-color: #6b7280;
+        }
+
+
+        .professional-register-form input:focus {
+            background: #0f172a;
+            border-color: #f59e0b;
+
+            box-shadow:
+                0 0 0 3px rgba(245, 158, 11, 0.10);
+        }
+
+
+        /* BUTTON */
+
+        .professional-register-button {
+            display: block;
+
+            width: 180px;
+            min-height: 46px;
+
+            margin: 8px auto 0;
+            padding: 12px 20px;
+
+            color: #111827;
+            background: #f59e0b;
+
+            border: 1px solid #f59e0b;
+            border-radius: 9px;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition:
+                background 0.25s ease,
+                border-color 0.25s ease,
+                transform 0.25s ease;
+        }
+
+
+        .professional-register-button:hover {
+            background: #fbbf24;
+            border-color: #fbbf24;
+
+            transform: translateY(-1px);
+        }
+
+
+        .professional-register-button:focus-visible {
+            outline: 3px solid rgba(245, 158, 11, 0.25);
+            outline-offset: 2px;
+        }
+
+
+        /* LOGIN */
+
+        .professional-register-login {
+            margin: 22px 0 0;
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+
+            color: #9ca3af;
+
+            text-align: center;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        .professional-register-login a {
+            color: #f59e0b;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition: color 0.25s ease;
+        }
+
+
+        .professional-register-login a:hover {
+            color: #fbbf24;
+            text-decoration: underline;
+        }
+
+
+        /* HOME */
+
+        .professional-register-home {
+            display: block;
+
+            margin-top: 20px;
+
+            color: #9ca3af;
+
+            text-align: center;
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: color 0.25s ease;
+        }
+
+
+        .professional-register-home:hover {
+            color: #ffffff;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+
+            body {
+                padding: 24px 16px;
+            }
+
+
+            .professional-register-logo {
+                font-size: 27px;
+            }
+
+
+            .professional-register-header h1 {
+                font-size: 28px;
+            }
+
+
+            .professional-register-card {
+                padding: 24px 20px;
+            }
+
+
+            .professional-register-button {
+                width: 100%;
+            }
+
+        }
+
+
+        @media (max-width: 400px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+
+            .professional-register-header h1 {
+                font-size: 25px;
+            }
+
+
+            .professional-register-header p {
+                font-size: 13px;
+            }
+
+
+            .professional-register-card {
+                padding: 22px 16px;
+            }
+
+
+            .professional-register-card h2 {
+                font-size: 19px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main class="professional-register-page">
+
+
+        <!-- HEADER -->
+
+        <header class="professional-register-header">
+
+            <a
+                href="{% url 'home' %}"
+                class="professional-register-logo"
+            >
+                ProShop
+            </a>
+
+            <div>
+
+                <span class="professional-register-badge">
+                    PROSHOP ACCOUNT
+                </span>
+
+            </div>
+
+            <h1>
+                Create Your Account
+            </h1>
+
+            <p>
+                Join ProShop and enjoy a simple and secure shopping experience.
+            </p>
+
+        </header>
+
+
+        <!-- REGISTER CARD -->
+
+        <section class="professional-register-card">
+
+            <h2>
+                Create Account
+            </h2>
+
+
+            <!-- ERROR -->
+
+            {% if error %}
+
+                <div
+                    class="professional-register-error"
+                    role="alert"
+                >
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- FORM -->
+
+            <form
+                method="POST"
+                class="professional-register-form"
+            >
+
+                {% csrf_token %}
+
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Choose a username"
+                    autocomplete="username"
+                    required
+                    autofocus
+                >
+
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    autocomplete="new-password"
+                    required
+                >
+
+
+                <label for="confirm_password">
+                    Confirm Password
+                </label>
+
+                <input
+                    type="password"
+                    id="confirm_password"
+                    name="confirm_password"
+                    placeholder="Confirm your password"
+                    autocomplete="new-password"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="professional-register-button"
+                >
+                    Register
+                </button>
+
+            </form>
+
+
+            <!-- LOGIN -->
+
+            <p class="professional-register-login">
+
+                Already have an account?
+
+                <a href="{% url 'login' %}">
+                    Login
+                </a>
+
+            </p>
+
+
+            <!-- HOME -->
+
+            <a
+                href="{% url 'home' %}"
+                class="professional-register-home"
+            >
+                ← Back to Home
+            </a>
+
+        </section>
+
+
+    </main>
+
+</body>
+
+</html>

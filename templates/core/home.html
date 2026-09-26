@@ -1,0 +1,366 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ProShop - Home</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+            <a href="{% url 'home' %}" class="logo">
+                ProShop
+            </a>
+
+            <div class="nav-links">
+
+                <a href="{% url 'home' %}">
+                    Home
+                </a>
+
+                <a href="{% url 'product_list' %}">
+                    Products
+                </a>
+
+                {% if user.is_authenticated %}
+
+                    <a href="{% url 'profile' %}">
+                        Profile
+                    </a>
+
+                    <a href="{% url 'order_history' %}">
+                        Orders
+                    </a>
+
+                    <a href="{% url 'logout' %}">
+                        Logout
+                    </a>
+
+                {% else %}
+
+                    <a href="{% url 'login' %}">
+                        Login
+                    </a>
+
+                {% endif %}
+
+                <a href="{% url 'cart' %}">
+                    Cart
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="hero-badge">
+                Welcome to ProShop
+            </span>
+
+            <h1>
+                Shop Smart.<br>
+                Shop with Confidence.
+            </h1>
+
+            <p>
+                Discover quality products, simple shopping,
+                and a professional online shopping experience.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    href="{% url 'product_list' %}"
+                    class="hero-btn"
+                >
+                    Shop Now
+                </a>
+
+                <a
+                    href="#products"
+                    class="hero-btn secondary"
+                >
+                    Explore Products
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Features Section -->
+    <section class="features-section">
+
+        <div class="features-container">
+
+            <div class="feature-card">
+
+                <h3>
+                    Quality Products
+                </h3>
+
+                <p>
+                    Carefully selected products for your everyday needs.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <h3>
+                    Easy Shopping
+                </h3>
+
+                <p>
+                    Browse products, add to cart, and checkout with ease.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <h3>
+                    Secure Orders
+                </h3>
+
+                <p>
+                    Keep track of your orders through your personal account.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Products Section -->
+    <section
+        class="products-section"
+        id="products"
+    >
+
+        <div class="products-container">
+
+            <div class="section-heading">
+
+                <span>
+                    Featured Collection
+                </span>
+
+                <h2>
+                    Our Products
+                </h2>
+
+                <p>
+                    Explore some of our latest products.
+                </p>
+
+            </div>
+
+
+            <div class="products-grid">
+
+                {% for product in products %}
+
+                    <div class="product-card">
+
+                        {% if product.image %}
+
+                            <div class="product-image-container">
+
+                                <img
+                                    src="{{ product.image.url }}"
+                                    alt="{{ product.name }}"
+                                    class="product-image"
+                                >
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <div class="product-content">
+
+                            <h3>
+                                {{ product.name }}
+                            </h3>
+
+                            <p class="product-description">
+                                {{ product.description }}
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <div class="product-price">
+                                    Rs. {{ product.price }}
+                                </div>
+
+                                <span class="product-stock">
+
+                                    {% if product.stock > 0 %}
+                                        In Stock
+                                    {% else %}
+                                        Out of Stock
+                                    {% endif %}
+
+                                </span>
+
+                            </div>
+
+
+                            <a
+                                href="{% url 'product_detail' product.id %}"
+                                class="product-btn"
+                            >
+                                View Details
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="empty-products">
+
+                        <h3>
+                            No Products Available
+                        </h3>
+
+                        <p>
+                            Please check again later.
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div class="products-action">
+
+                <a
+                    href="{% url 'product_list' %}"
+                    class="view-all-btn"
+                >
+                    View All Products
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Call To Action -->
+    <section class="cta-section">
+
+        <div class="cta-content">
+
+            <h2>
+                Ready to Start Shopping?
+            </h2>
+
+            <p>
+                Find your favorite products and place your order today.
+            </p>
+
+            <a
+                href="{% url 'product_list' %}"
+                class="cta-btn"
+            >
+                Browse Products
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <h3>
+                    ProShop
+                </h3>
+
+                <p>
+                    Your professional online shopping experience.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="{% url 'home' %}">
+                    Home
+                </a>
+
+                <a href="{% url 'product_list' %}">
+                    Products
+                </a>
+
+                <a href="{% url 'cart' %}">
+                    Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 ProShop. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

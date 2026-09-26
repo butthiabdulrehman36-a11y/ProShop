@@ -1,0 +1,1039 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order #{{ order.id }} - ProShop</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+
+        /* =========================================================
+           PROFESSIONAL ORDER DETAIL PAGE
+        ========================================================= */
+
+        .professional-order-detail-page {
+            min-height: 100vh;
+            padding: 60px 20px;
+            background: #111827;
+        }
+
+        .professional-order-detail-container {
+            width: 100%;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+
+        /* =========================================================
+           PAGE HEADER
+        ========================================================= */
+
+        .professional-order-detail-header {
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .professional-order-detail-badge {
+            display: inline-block;
+
+            margin-bottom: 14px;
+            padding: 7px 14px;
+
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.12);
+
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 999px;
+
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .professional-order-detail-header h1 {
+            margin: 0 0 10px;
+
+            color: #ffffff;
+
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .professional-order-detail-header p {
+            margin: 0;
+
+            color: #9ca3af;
+
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
+           MAIN ORDER CARD
+        ========================================================= */
+
+        .professional-order-detail-card {
+            padding: 30px;
+
+            background: #1f2937;
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+        }
+
+
+        /* =========================================================
+           ORDER HEADER
+        ========================================================= */
+
+        .professional-detail-order-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .professional-detail-order-number {
+            margin: 0;
+
+            color: #f59e0b;
+
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .professional-detail-order-date {
+            margin: 0;
+
+            color: #9ca3af;
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+           SECTIONS
+        ========================================================= */
+
+        .professional-detail-section {
+            margin-bottom: 30px;
+        }
+
+        .professional-detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .professional-detail-section-title {
+            margin: 0 0 18px;
+
+            color: #ffffff;
+
+            font-size: 19px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+
+        /* =========================================================
+           CUSTOMER INFORMATION
+        ========================================================= */
+
+        .professional-customer-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 14px;
+        }
+
+        .professional-customer-box {
+            padding: 16px;
+
+            background: #111827;
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+        }
+
+        .professional-customer-box.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .professional-customer-label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .professional-customer-value {
+            display: block;
+
+            color: #ffffff;
+
+            font-size: 14px;
+            line-height: 1.6;
+
+            word-break: break-word;
+        }
+
+
+        /* =========================================================
+           CURRENT STATUS
+        ========================================================= */
+
+        .professional-current-status {
+            margin-bottom: 22px;
+            padding: 18px;
+
+            background: #111827;
+
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            border-radius: 10px;
+        }
+
+        .professional-current-status-label {
+            margin-right: 8px;
+
+            color: #9ca3af;
+
+            font-size: 13px;
+        }
+
+        .professional-current-status-value {
+            color: #f59e0b;
+
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+
+        /* =========================================================
+           CANCELLED STATUS
+        ========================================================= */
+
+        .professional-cancelled-status {
+            margin-bottom: 22px;
+            padding: 18px;
+
+            color: #fecaca;
+            background: rgba(239, 68, 68, 0.10);
+
+            border: 1px solid rgba(239, 68, 68, 0.30);
+            border-left: 4px solid #ef4444;
+            border-radius: 10px;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .professional-cancelled-status strong {
+            color: #fca5a5;
+        }
+
+
+        /* =========================================================
+           ORDER TRACKING
+        ========================================================= */
+
+        .professional-tracking {
+            display: flex;
+            align-items: flex-start;
+
+            width: 100%;
+
+            margin-top: 25px;
+        }
+
+        .professional-tracking-step {
+            flex: 1;
+
+            min-width: 0;
+
+            text-align: center;
+            position: relative;
+        }
+
+        .professional-tracking-circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 42px;
+            height: 42px;
+
+            margin: 0 auto 10px;
+
+            color: #9ca3af;
+            background: #374151;
+
+            border-radius: 50%;
+
+            font-size: 16px;
+            font-weight: 800;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .professional-tracking-step.active
+        .professional-tracking-circle {
+            color: #111827;
+            background: #f59e0b;
+        }
+
+        .professional-tracking-label {
+            margin: 0;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .professional-tracking-step.active
+        .professional-tracking-label {
+            color: #ffffff;
+        }
+
+        .professional-tracking-line {
+            flex: 1;
+
+            height: 2px;
+
+            margin-top: 21px;
+
+            background: #374151;
+        }
+
+        .professional-tracking-line.active {
+            background: #f59e0b;
+        }
+
+
+        /* =========================================================
+           ORDER ITEMS
+        ========================================================= */
+
+        .professional-detail-items {
+            display: flex;
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+        .professional-detail-item {
+            display: grid;
+
+            grid-template-columns: 1fr auto auto auto;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 17px;
+
+            background: #111827;
+
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+        }
+
+        .professional-detail-product-name {
+            color: #f59e0b;
+
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        .professional-detail-item-info {
+            color: #d1d5db;
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .professional-detail-item-total {
+            color: #f59e0b;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+        .professional-no-items {
+            padding: 18px;
+
+            color: #9ca3af;
+            background: #111827;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           TOTAL
+        ========================================================= */
+
+        .professional-detail-total {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 20px;
+
+            background: rgba(245, 158, 11, 0.08);
+
+            border: 1px solid rgba(245, 158, 11, 0.20);
+            border-radius: 10px;
+        }
+
+        .professional-detail-total-label {
+            color: #ffffff;
+
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .professional-detail-total-value {
+            color: #f59e0b;
+
+            font-size: 23px;
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================================================
+           ACTIONS
+        ========================================================= */
+
+        .professional-detail-actions {
+            display: flex;
+            justify-content: center;
+
+            margin-top: 30px;
+            padding-top: 25px;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .professional-detail-back-button {
+            display: inline-block;
+
+            padding: 13px 24px;
+
+            color: #d1d5db;
+            background: transparent;
+
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.4;
+
+            transition:
+                color 0.25s ease,
+                background 0.25s ease,
+                border-color 0.25s ease,
+                transform 0.25s ease;
+        }
+
+        .professional-detail-back-button:hover {
+            color: #ffffff;
+
+            background: rgba(245, 158, 11, 0.08);
+
+            border-color: rgba(245, 158, 11, 0.40);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE DESIGN
+        ========================================================= */
+
+        @media (max-width: 800px) {
+
+            .professional-detail-item {
+                grid-template-columns: 1fr 1fr;
+
+                gap: 10px 16px;
+            }
+
+            .professional-detail-product-name {
+                grid-column: 1 / -1;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .professional-order-detail-page {
+                padding: 40px 16px;
+            }
+
+            .professional-order-detail-header {
+                margin-bottom: 28px;
+            }
+
+            .professional-order-detail-header h1 {
+                font-size: 29px;
+            }
+
+            .professional-order-detail-header p {
+                font-size: 14px;
+            }
+
+            .professional-order-detail-card {
+                padding: 20px 18px;
+
+                border-radius: 14px;
+            }
+
+            .professional-detail-order-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 8px;
+            }
+
+            .professional-detail-order-number {
+                font-size: 22px;
+            }
+
+            .professional-customer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .professional-customer-box.full-width {
+                grid-column: auto;
+            }
+
+            .professional-tracking {
+                display: grid;
+
+                grid-template-columns: 1fr 1fr;
+
+                gap: 18px 10px;
+            }
+
+            .professional-tracking-line {
+                display: none;
+            }
+
+            .professional-tracking-circle {
+                width: 40px;
+                height: 40px;
+            }
+
+            .professional-detail-item {
+                grid-template-columns: 1fr;
+
+                gap: 8px;
+            }
+
+            .professional-detail-product-name {
+                grid-column: auto;
+            }
+
+            .professional-detail-item-total {
+                white-space: normal;
+            }
+
+            .professional-detail-total {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 8px;
+            }
+
+            .professional-detail-total-value {
+                font-size: 21px;
+            }
+
+            .professional-detail-actions {
+                width: 100%;
+            }
+
+            .professional-detail-back-button {
+                width: 100%;
+                box-sizing: border-box;
+
+                text-align: center;
+            }
+
+        }
+
+
+        @media (max-width: 400px) {
+
+            .professional-order-detail-page {
+                padding: 30px 12px;
+            }
+
+            .professional-order-detail-card {
+                padding: 18px 15px;
+            }
+
+            .professional-order-detail-header h1 {
+                font-size: 26px;
+            }
+
+            .professional-detail-section-title {
+                font-size: 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar">
+
+    <div class="navbar-container">
+
+        <a href="{% url 'home' %}" class="logo">
+            ProShop
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'product_list' %}">
+                Products
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <a href="{% url 'profile' %}">
+                    Profile
+                </a>
+
+                <a href="{% url 'logout' %}">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'login' %}">
+                    Login
+                </a>
+
+            {% endif %}
+
+            <a href="{% url 'cart' %}">
+                Cart
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     ORDER DETAIL PAGE
+========================================================= -->
+
+<main class="professional-order-detail-page">
+
+    <div class="professional-order-detail-container">
+
+
+        <!-- PAGE HEADER -->
+
+        <section class="professional-order-detail-header">
+
+            <span class="professional-order-detail-badge">
+                PROSHOP ORDER
+            </span>
+
+            <h1>
+                Order Details
+            </h1>
+
+            <p>
+                Complete information about your order.
+            </p>
+
+        </section>
+
+
+        <!-- MAIN ORDER CARD -->
+
+        <section class="professional-order-detail-card">
+
+
+            <!-- ORDER HEADER -->
+
+            <div class="professional-detail-order-header">
+
+                <h2 class="professional-detail-order-number">
+                    Order #{{ order.id }}
+                </h2>
+
+                <p class="professional-detail-order-date">
+                    {{ order.created_at|date:"d M Y, h:i A" }}
+                </p>
+
+            </div>
+
+
+            <!-- CUSTOMER INFORMATION -->
+
+            <section class="professional-detail-section">
+
+                <h3 class="professional-detail-section-title">
+                    Customer Information
+                </h3>
+
+                <div class="professional-customer-grid">
+
+                    <div class="professional-customer-box">
+
+                        <span class="professional-customer-label">
+                            Name
+                        </span>
+
+                        <span class="professional-customer-value">
+                            {{ order.name }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="professional-customer-box">
+
+                        <span class="professional-customer-label">
+                            Email
+                        </span>
+
+                        <span class="professional-customer-value">
+                            {{ order.email }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="professional-customer-box">
+
+                        <span class="professional-customer-label">
+                            Phone
+                        </span>
+
+                        <span class="professional-customer-value">
+                            {{ order.phone }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="professional-customer-box">
+
+                        <span class="professional-customer-label">
+                            City
+                        </span>
+
+                        <span class="professional-customer-value">
+                            {{ order.city }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="professional-customer-box full-width">
+
+                        <span class="professional-customer-label">
+                            Delivery Address
+                        </span>
+
+                        <span class="professional-customer-value">
+                            {{ order.address }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ORDER STATUS -->
+
+            <section class="professional-detail-section">
+
+                <h3 class="professional-detail-section-title">
+                    Order Status
+                </h3>
+
+
+                {% if order.status == 'cancelled' %}
+
+                    <div class="professional-cancelled-status">
+
+                        <strong>Order Status:</strong>
+                        {{ order.get_status_display }}
+
+                        <br>
+
+                        This order has been cancelled.
+
+                    </div>
+
+                {% else %}
+
+                    <div class="professional-current-status">
+
+                        <span class="professional-current-status-label">
+                            Current Status:
+                        </span>
+
+                        <span class="professional-current-status-value">
+                            {{ order.get_status_display }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- ORDER TRACKING -->
+
+                    <div class="professional-tracking">
+
+
+                        <div class="professional-tracking-step
+                            {% if order.status == 'pending' or order.status == 'processing' or order.status == 'shipped' or order.status == 'delivered' %}
+                                active
+                            {% endif %}">
+
+                            <div class="professional-tracking-circle">
+                                ✓
+                            </div>
+
+                            <p class="professional-tracking-label">
+                                Pending
+                            </p>
+
+                        </div>
+
+
+                        <div class="professional-tracking-line
+                            {% if order.status == 'processing' or order.status == 'shipped' or order.status == 'delivered' %}
+                                active
+                            {% endif %}">
+                        </div>
+
+
+                        <div class="professional-tracking-step
+                            {% if order.status == 'processing' or order.status == 'shipped' or order.status == 'delivered' %}
+                                active
+                            {% endif %}">
+
+                            <div class="professional-tracking-circle">
+                                2
+                            </div>
+
+                            <p class="professional-tracking-label">
+                                Processing
+                            </p>
+
+                        </div>
+
+
+                        <div class="professional-tracking-line
+                            {% if order.status == 'shipped' or order.status == 'delivered' %}
+                                active
+                            {% endif %}">
+                        </div>
+
+
+                        <div class="professional-tracking-step
+                            {% if order.status == 'shipped' or order.status == 'delivered' %}
+                                active
+                            {% endif %}">
+
+                            <div class="professional-tracking-circle">
+                                3
+                            </div>
+
+                            <p class="professional-tracking-label">
+                                Shipped
+                            </p>
+
+                        </div>
+
+
+                        <div class="professional-tracking-line
+                            {% if order.status == 'delivered' %}
+                                active
+                            {% endif %}">
+                        </div>
+
+
+                        <div class="professional-tracking-step
+                            {% if order.status == 'delivered' %}
+                                active
+                            {% endif %}">
+
+                            <div class="professional-tracking-circle">
+                                ✓
+                            </div>
+
+                            <p class="professional-tracking-label">
+                                Delivered
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+
+            <!-- ORDER ITEMS -->
+
+            <section class="professional-detail-section">
+
+                <h3 class="professional-detail-section-title">
+                    Order Items
+                </h3>
+
+
+                <div class="professional-detail-items">
+
+                    {% for item in order.items.all %}
+
+                        <div class="professional-detail-item">
+
+                            <div class="professional-detail-product-name">
+                                {{ item.product.name }}
+                            </div>
+
+                            <div class="professional-detail-item-info">
+                                Quantity: {{ item.quantity }}
+                            </div>
+
+                            <div class="professional-detail-item-info">
+                                Price: PKR {{ item.price|floatformat:2 }}
+                            </div>
+
+                            <div class="professional-detail-item-total">
+                                Subtotal: PKR {{ item.item_total|floatformat:2 }}
+                            </div>
+
+                        </div>
+
+                    {% empty %}
+
+                        <div class="professional-no-items">
+                            No items found for this order.
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+
+            <!-- TOTAL -->
+
+            <section class="professional-detail-section">
+
+                <div class="professional-detail-total">
+
+                    <span class="professional-detail-total-label">
+                        Total Amount
+                    </span>
+
+                    <span class="professional-detail-total-value">
+                        PKR {{ order.total_amount|floatformat:2 }}
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- ACTION -->
+
+            <div class="professional-detail-actions">
+
+                <a
+                    href="{% url 'product_list' %}"
+                    class="professional-detail-back-button"
+                >
+                    Continue Shopping
+                </a>
+
+            </div>
+
+
+        </section>
+
+    </div>
+
+</main>
+
+
+</body>
+
+</html>
