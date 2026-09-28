@@ -12,7 +12,7 @@ def product_list(request):
 
     return render(
         request,
-        'products/product_list.html',
+        'Products/product_list.html',
         {'products': products},
     )
 
@@ -29,7 +29,7 @@ def product_detail(request, id):
 
     return render(
         request,
-        'products/product_detail.html',
+        'Products/product_detail.html',
         {'product': product},
     )
 
@@ -180,6 +180,6 @@ def cart(request):
 
     return render(
         request,
-        'products/cart.html',
+        'Products/cart.html',
         {'products': products},
     )
