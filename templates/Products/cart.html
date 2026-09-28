@@ -1,4 +1,4 @@
-{% load static %}
+{% load static product_extras %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -579,7 +579,7 @@
                                 {% if item.product.image %}
 
                                     <img
-                                        src="{{ item.product.image.url }}"
+                                        src="{{ item.product.image|product_image_url }}"
                                         alt="{{ item.product.name }}"
                                         class="professional-cart-image"
                                         loading="lazy"
