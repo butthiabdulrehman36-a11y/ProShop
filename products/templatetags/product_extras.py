@@ -8,9 +8,4 @@ def product_image_url(image):
     if not image:
         return ""
 
-    name = str(image.name)
-
-    if name.startswith("products/"):
-        return f"/static/{name}"
-
     return image.url

@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
-
 from .models import Product
+from django.contrib import messages
 
 
 def product_list(request):
@@ -70,6 +70,11 @@ def add_to_cart(request, id):
 
     request.session['cart'] = cart
     request.session.modified = True
+
+    messages.success(
+        request,
+        f"{product.name} has been added to your cart."
+    )
 
     return redirect(
         'product_detail',
