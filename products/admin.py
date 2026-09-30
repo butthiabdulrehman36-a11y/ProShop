@@ -4,6 +4,18 @@ from django.utils.html import format_html
 from .models import Product
 
 
+def admin_product_image_url(image):
+    if not image:
+        return ""
+
+    name = image.name
+
+    if name.startswith("products/"):
+        return f"/static/{name}"
+
+    return image.url
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
 
@@ -70,7 +82,7 @@ class ProductAdmin(admin.ModelAdmin):
             return format_html(
                 '<img src="{}" width="60" height="60" '
                 'style="object-fit: cover; border-radius: 6px;" />',
-                obj.image.url,
+                admin_product_image_url(obj.image),
             )
 
         return 'No Image'
@@ -81,7 +93,7 @@ class ProductAdmin(admin.ModelAdmin):
             return format_html(
                 '<img src="{}" width="200" '
                 'style="object-fit: contain; border-radius: 8px;" />',
-                obj.image.url,
+                admin_product_image_url(obj.image),
             )
 
         return 'No Image'

@@ -5,6 +5,18 @@ from django.utils.html import format_html
 from .models import Order, OrderItem
 
 
+def admin_product_image_url(image):
+    if not image:
+        return ""
+
+    name = image.name
+
+    if name.startswith("products/"):
+        return f"/static/{name}"
+
+    return image.url
+
+
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0
@@ -28,7 +40,7 @@ class OrderItemInline(admin.TabularInline):
             return format_html(
                 '<img src="{}" width="60" height="60" '
                 'style="object-fit:cover; border-radius:8px;" />',
-                obj.product.image.url,
+                admin_product_image_url(obj.product.image),
             )
 
         return 'No Image'
@@ -198,7 +210,7 @@ class OrderItemAdmin(admin.ModelAdmin):
             return format_html(
                 '<img src="{}" width="60" height="60" '
                 'style="object-fit:cover; border-radius:8px;" />',
-                obj.product.image.url,
+                admin_product_image_url(obj.product.image),
             )
 
         return 'No Image'
