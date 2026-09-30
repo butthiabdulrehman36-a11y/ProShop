@@ -35,6 +35,11 @@ ALLOWED_HOSTS = [
     if host.strip()
 ]
 
+VERCEL_URL = os.getenv("VERCEL_URL", "").strip()
+
+if VERCEL_URL:
+    ALLOWED_HOSTS.append(VERCEL_URL)
+
 
 # ============================================================
 # APPLICATIONS
